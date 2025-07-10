@@ -1,19 +1,677 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>My static Space</title>
-		<link rel="stylesheet" href="style.css" />
-	</head>
-	<body>
-		<div class="card">
-			<h1>Welcome to your static Space!</h1>
-			<p>You can modify this app directly by editing <i>index.html</i> in the Files and versions tab.</p>
-			<p>
-				Also don't forget to check the
-				<a href="https://huggingface.co/docs/hub/spaces" target="_blank">Spaces documentation</a>.
-			</p>
-		</div>
-	</body>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tien.win - Kiếm tiền dễ dàng với nhiệm vụ trực tuyến</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5C6BC0',
+                        secondary: '#FF9800',
+                        accent: '#4CAF50',
+                        dark: '#2E3A59',
+                        light: '#F5F7FF'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Roboto', sans-serif;
+        }
+        .nav-item::after {
+            content: '';
+            display: block;
+            height: 2px;
+            background: #FF9800;
+            width: 0;
+            transition: width 0.3s;
+        }
+        .nav-item:hover::after {
+            width: 100%;
+        }
+        .cta-shadow:hover {
+            box-shadow: 0 10px 25px -5px rgba(255, 152, 0, 0.4);
+            transform: translateY(-3px);
+        }
+        .usp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .step-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 100%;
+            height: 2px;
+            width: 60px;
+            background: #E0E7FF;
+        }
+        @media (max-width: 768px) {
+            .step-item:not(:last-child)::after {
+                top: 100%;
+                left: 40px;
+                height: 40px;
+                width: 2px;
+            }
+        }
+        .task-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .testimonial-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-light text-dark">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-4">
+            <nav class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <a href="/" class="flex items-center">
+                    <i class="fas fa-coins text-3xl text-secondary"></i>
+                    <span class="ml-2 text-2xl font-bold text-primary">Tien<span class="text-secondary">.win</span></span>
+                </a>
+
+                <!-- Desktop menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="nav-item font-medium py-2 text-primary">Trang chủ</a>
+                    <a href="#" class="nav-item font-medium py-2">Nhiệm vụ</a>
+                    <a href="#" class="nav-item font-medium py-2">Điểm thưởng</a>
+                    <a href="#" class="nav-item font-medium py-2">Hỗ trợ</a>
+                    <a href="#" class="font-medium py-2 px-4 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition duration-300">Đăng nhập</a>
+                    <a href="#" class="cta-shadow bg-secondary text-white font-bold py-2 px-6 rounded-lg transition duration-300 hover:bg-orange-600">Tham gia ngay</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="outline-none mobile-menu-button">
+                        <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden py-4 px-2">
+                <a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Trang chủ</a>
+                <a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Nhiệm vụ</a>
+                <a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Điểm thưởng</a>
+                <a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Hỗ trợ</a>
+                <a href="#" class="block py-2 px-4 rounded border border-primary text-primary text-center my-2">Đăng nhập</a>
+                <a href="#" class="block py-2 px-4 rounded bg-secondary text-white text-center font-bold">Tham gia ngay</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="pt-24 md:pt-28">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center md:justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                        <span class="text-primary">Kiếm tiền dễ dàng</span> với các <span class="text-secondary">nhiệm vụ trực tuyến</span>
+                    </h1>
+                    <h2 class="text-xl md:text-2xl font-semibold text-gray-600 mb-10">
+                        Minh bạch • Nhanh chóng • Phong phú
+                    </h2>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                        <a href="#" class="cta-shadow inline-block bg-secondary text-white font-bold py-4 px-8 rounded-lg text-center text-lg transition duration-300 transform hover:-translate-y-1">
+                            Đăng ký miễn phí
+                        </a>
+                        <a href="#" class="inline-block border-2 border-primary text-primary font-bold py-4 px-8 rounded-lg text-center text-lg hover:bg-primary hover:text-white transition duration-300">
+                            <i class="fas fa-play-circle mr-2"></i> Xem video
+                        </a>
+                    </div>
+                </div>
+            
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative">
+                        <div class="bg-white rounded-2xl p-6 shadow-xl w-80 md:w-96 relative z-20">
+                            <div class="flex items-center mb-6">
+                                <div class="flex items-center">
+                                    <img src="https://i.pravatar.cc/40?img=8" class="rounded-full w-10 h-10 border-2 border-white" alt="">
+                                    <img src="https://i.pravatar.cc/40?img=15" class="rounded-full w-10 h-10 border-2 border-white -ml-2" alt="">
+                                    <img src="https://i.pravatar.cc/40?img=30" class="rounded-full w-10 h-10 border-2 border-white -ml-2" alt="">
+                                </div>
+                                <span class="ml-3 text-sm text-gray-600">+2000 người đang tham gia</span>
+                            </div>
+                            
+                            <div class="bg-gray-100 rounded-xl p-4 mb-4">
+                                <div class="flex items-center mb-2">
+                                    <div class="bg-gray-300 rounded-full p-2 mr-3">
+                                        <i class="fas fa-pen text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold">Viết bài SEO</p>
+                                        <p class="text-sm text-gray-500">1,500 điểm - 25 phút</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm">Viết bài theo chủ đề du lịch miền Trung...</p>
+                            </div>
+                            
+                            <div class="bg-gray-100 rounded-xl p-4 mb-4">
+                                <div class="flex items-center mb-2">
+                                    <div class="bg-gray-300 rounded-full p-2 mr-3">
+                                        <i class="fas fa-share-alt text-green-500"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold">Chia sẻ Facebook</p>
+                                        <p class="text-sm text-gray-500">500 điểm - 5 phút</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm">Chia sẻ bài viết trên fanpage...</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-lg p-3 text-center text-sm border border-dashed border-gray-300">
+                                <p class="text-primary font-bold">300+ nhiệm vụ trực tuyến đang chờ bạn</p>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute -top-4 -right-4 w-80 h-72 bg-primary/10 rounded-2xl z-10"></div>
+                        <div class="absolute -bottom-4 -left-4 w-80 h-72 bg-secondary/10 rounded-2xl z-10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-primary">
+                    Bắt đầu kiếm tiền với hàng ngàn nhiệm vụ đa dạng
+                </h2>
+                <p class="text-lg text-gray-600 mb-10">
+                    Tien.win là nền tảng kết nối bạn với các nhiệm vụ trực tuyến đa dạng như SEO, social, viết bài, và hơn thế nữa. Kiếm điểm thưởng và đổi thành tiền mặt hoặc ưu đãi từ các thương hiệu đối tác một cách minh bạch và nhanh chóng!
+                </p>
+                <div class="flex justify-center space-x-6">
+                    <div class="text-center py-4 px-6 bg-light rounded-lg">
+                        <p class="text-4xl font-bold text-primary">50.000+</p>
+                        <p class="text-gray-600">Thành viên</p>
+                    </div>
+                    <div class="text-center py-4 px-6 bg-light rounded-lg">
+                        <p class="text-4xl font-bold text-secondary">300+</p>
+                        <p class="text-gray-600">Nhiệm vụ mỗi ngày</p>
+                    </div>
+                    <div class="text-center py-4 px-6 bg-light rounded-lg">
+                        <p class="text-4xl font-bold text-accent">50.000.000+</p>
+                        <p class="text-gray-600">Điểm đã trả</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USP Section -->
+    <section class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-primary">
+                Tại sao bạn nên sử dụng Tien.win?
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- USP 1 -->
+                <div class="usp-card bg-white rounded-xl shadow-lg p-6 transition-all duration-300">
+                    <div class="flex justify-center mb-6">
+                        <div class="bg-primary/10 rounded-full p-4">
+                            <i class="fas fa-eye text-3xl text-primary"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">Tính minh bạch</h3>
+                    <p class="text-gray-600 text-center">
+                        Mọi nhiệm vụ, điểm thưởng và quy trình đổi thưởng được hiển thị rõ ràng, giúp bạn luôn nắm rõ giá trị công việc của mình.
+                    </p>
+                </div>
+                
+                <!-- USP 2 -->
+                <div class="usp-card bg-white rounded-xl shadow-lg p-6 transition-all duration-300">
+                    <div class="flex justify-center mb-6">
+                        <div class="bg-accent/10 rounded-full p-4">
+                            <i class="fas fa-bolt text-3xl text-accent"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">Chi trả nhanh</h3>
+                    <p class="text-gray-600 text-center">
+                        Nhận tiền mặt hoặc ưu đãi trong vòng 24 giờ sau khi hoàn thành nhiệm vụ. Không chờ đợi lâu như các nền tảng khác.
+                    </p>
+                </div>
+                
+                <!-- USP 3 -->
+                <div class="usp-card bg-white rounded-xl shadow-lg p-6 transition-all duration-300">
+                    <div class="flex justify-center mb-6">
+                        <div class="bg-secondary/10 rounded-full p-4">
+                            <i class="fas fa-tasks text-3xl text-secondary"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">Nhiệm vụ phong phú</h3>
+                    <p class="text-gray-600 text-center">
+                        Đa dạng nhiệm vụ từ SEO, quản lý mạng xã hội, viết bài SEO, đến GEO và sản xuất nội dung theo yêu cầu.
+                    </p>
+                </div>
+                
+                <!-- USP 4 -->
+                <div class="usp-card bg-white rounded-xl shadow-lg p-6 transition-all duration-300">
+                    <div class="flex justify-center mb-6">
+                        <div class="bg-purple-500/10 rounded-full p-4">
+                            <i class="fas fa-headset text-3xl text-purple-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">Hỗ trợ chuyên nghiệp</h3>
+                    <p class="text-gray-600 text-center">
+                        Đội ngũ hỗ trợ 24/7 sẵn sàng giải đáp thắc mắc và hỗ trợ bạn bất cứ lúc nào qua Zalo, Messenger và điện thoại.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-primary">
+                Đơn giản với 4 bước
+            </h2>
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start">
+                <!-- Step 1 -->
+                <div class="step-item relative py-4 md:w-1/4 flex flex-col items-center mb-10 md:mb-0">
+                    <div class="bg-primary rounded-full w-20 h-20 flex items-center justify-center mb-6">
+                        <span class="text-3xl text-white font-bold">1</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Đăng ký</h3>
+                    <p class="text-center text-gray-600">
+                        Tạo tài khoản miễn phí chỉ trong 30 giây
+                    </p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="step-item relative py-4 md:w-1/4 flex flex-col items-center mb-10 md:mb-0">
+                    <div class="bg-secondary rounded-full w-20 h-20 flex items-center justify-center mb-6">
+                        <span class="text-3xl text-white font-bold">2</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Chọn nhiệm vụ</h3>
+                    <p class="text-center text-gray-600">
+                        Chọn từ hàng trăm nhiệm vụ phù hợp khả năng
+                    </p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="step-item relative py-4 md:w-1/4 flex flex-col items-center mb-10 md:mb-0">
+                    <div class="bg-green-500 rounded-full w-20 h-20 flex items-center justify-center mb-6">
+                        <span class="text-3xl text-white font-bold">3</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Hoàn thành</h3>
+                    <p class="text-center text-gray-600">
+                        Thực hiện nhiệm vụ và kiếm điểm thưởng
+                    </p>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="step-item relative py-4 md:w-1/4 flex flex-col items-center">
+                    <div class="bg-orange-500 rounded-full w-20 h-20 flex items-center justify-center mb-6">
+                        <span class="text-3xl text-white font-bold">4</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Đổi thưởng</h3>
+                    <p class="text-center text-gray-600">
+                        Quy đổi điểm thưởng thành tiền mặt hoặc quà tặng
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex justify-center mt-16">
+                <a href="#" class="cta-shadow bg-secondary text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-orange-600 transition duration-300">
+                    <i class="fas fa-user-plus mr-2"></i> Đăng ký ngay
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Task Types -->
+    <section class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-primary">
+                Loại nhiệm vụ đa dạng
+            </h2>
+            <p class="text-lg text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+                Tham gia vào các nhiệm vụ khác nhau phù hợp với kỹ năng và thời gian của bạn
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <!-- Task 1 -->
+                <div class="task-card bg-white rounded-2xl shadow-lg p-6 text-center transition-all duration-300">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-blue-100 rounded-full p-4">
+                            <i class="fas fa-search text-3xl text-blue-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">SEO</h3>
+                    <p class="text-gray-600">
+                        Tối ưu hóa từ khóa, xây dựng backlink và tăng lượng truy cập website
+                    </p>
+                </div>
+                
+                <!-- Task 2 -->
+                <div class="task-card bg-white rounded-2xl shadow-lg p-6 text-center transition-all duration-300">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-purple-100 rounded-full p-4">
+                            <i class="fab fa-facebook text-3xl text-purple-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Social</h3>
+                    <p class="text-gray-600">
+                        Quản lý mạng xã hội, tạo nội dung, tương tác và phát triển cộng đồng
+                    </p>
+                </div>
+                
+                <!-- Task 3 -->
+                <div class="task-card bg-white rounded-2xl shadow-lg p-6 text-center transition-all duration-300">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-green-100 rounded-full p-4">
+                            <i class="fas fa-pen-fancy text-3xl text-green-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Viết bài SEO</h3>
+                    <p class="text-gray-600">
+                        Sản xuất bài viết tối ưu hóa công cụ tìm kiếm, sáng tạo nội dung hấp dẫn
+                    </p>
+                </div>
+                
+                <!-- Task 4 -->
+                <div class="task-card bg-white rounded-2xl shadow-lg p-6 text-center transition-all duration-300">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-red-100 rounded-full p-4">
+                            <i class="fas fa-globe-asia text-3xl text-red-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">GEO</h3>
+                    <p class="text-gray-600">
+                        Nhiệm vụ liên quan đến SEO sáng tạo và địa điểm
+                    </p>
+                </div>
+                
+                <!-- Task 5 -->
+                <div class="task-card bg-white rounded-2xl shadow-lg p-6 text-center transition-all duration-300">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-orange-100 rounded-full p-4">
+                            <i class="fas fa-video text-3xl text-orange-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Sản xuất nội dung</h3>
+                    <p class="text-gray-600">
+                        Tạo video, hình ảnh, podcast và nội dung đa phương tiện khác
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <h3 class="font-bold text-xl mb-4 text-center">Lợi ích khi tham gia</h3>
+                <div class="bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-money-bill-wave text-2xl text-green-500 mr-3"></i>
+                            <p class="font-medium">Kiếm thu nhập linh hoạt</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-chart-line text-2xl text-blue-500 mr-3"></i>
+                            <p class="font-medium">Phát triển kỹ năng đa dạng</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-laptop-house text-2xl text-purple-500 mr-3"></i>
+                            <p class="font-medium">Làm việc từ xa mọi lúc</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-primary">
+                Người dùng nói gì về Tien.win
+            </h2>
+            <p class="text-lg text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+                Khám phá trải nghiệm thực tế từ hàng ngàn thành viên tin tưởng của chúng tôi
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card bg-light rounded-2xl p-8 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <img src="https://i.pravatar.cc/80?img=3" alt="" class="rounded-full w-16 h-16 mr-4">
+                        <div>
+                            <h3 class="font-bold text-lg">Nguyễn Văn A</h3>
+                            <p class="text-gray-500">Thành viên từ 2021</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "Tôi đã kiếm được 500.000 VNĐ chỉ trong tuần đầu! Chi trả rất nhanh và minh bạch, chưa bao giờ gặp khó khăn khi rút tiền."
+                    </p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card bg-light rounded-2xl p-8 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <img src="https://i.pravatar.cc/80?img=12" alt="" class="rounded-full w-16 h-16 mr-4">
+                        <div>
+                            <h3 class="font-bold text-lg">Trần Thị B</h3>
+                            <p class="text-gray-500">Thành viên từ 2022</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "Tien.win giúp tôi có thu nhập thêm khi làm việc tự do. Chỉ cần 1-2 giờ rảnh mỗi ngày, tháng rồi tôi kiếm gần 3 triệu đồng."
+                    </p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card bg-light rounded-2xl p-8 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <img src="https://i.pravatar.cc/80?img=32" alt="" class="rounded-full w-16 h-16 mr-4">
+                        <div>
+                            <h3 class="font-bold text-lg">Lê Hoàng C</h3>
+                            <p class="text-gray-500">Thành viên từ 2023</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "Hệ thống nhiệp vụ rất đa dạng. Tôi có thể lựa chọn các việc phù hợp với kỹ năng viết lách và kiếm tiền trong thời gian rảnh rỗi."
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Social Connect Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-8 text-primary">
+                    Tham gia cộng đồng sôi động Tien.win tại
+                </h2>
+                <div class="flex justify-center space-x-8">
+                    <a href="#" class="text-4xl text-blue-500 hover:text-blue-700 transition">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="#" class="text-4xl text-blue-600 hover:text-blue-800 transition">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="text-4xl text-indigo-500 hover:text-indigo-700 transition">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="py-16 md:py-24 bg-gradient-to-r from-primary to-purple-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    Sẵn sàng kiếm tiền thụ động?
+                </h2>
+                <p class="text-xl mb-10 opacity-90">
+                    Đăng ký ngay và nhận ngay phần thưởng 3.000 điểm khởi nghiệp cho thành viên mới!
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#" class="cta-shadow bg-white text-primary font-bold py-4 px-8 rounded-lg text-lg transition duration-300 hover:bg-gray-100">
+                        <i class="fas fa-user-plus mr-2"></i> Đăng ký miễn phí
+                    </a>
+                    <a href="#" class="border-2 border-white text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-white/10 transition duration-300">
+                        <i class="fas fa-headset mr-2"></i> Liên hệ hỗ trợ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white">
+        <div class="container mx-auto px-4 pt-12 pb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Column 1 -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-coins text-3xl text-secondary"></i>
+                        <span class="ml-2 text-2xl font-bold text-white">Tien<span class="text-secondary">.win</span></span>
+                    </div>
+                    <p class="mb-6 text-gray-300">
+                        Tien.win - Nền tảng kiếm tiền trực tuyến uy tín, minh bạch và nhanh chóng. Nơi bạn gửi gắm thời gian để nhận lại giá trị xứng đáng.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-secondary transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-secondary transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-secondary transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-secondary transition">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6 border-b border-gray-700 pb-2">Liên kết nhanh</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-secondary transition">Trang chủ</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-secondary transition">Nhiệm vụ</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-secondary transition">Điểm thưởng</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-secondary transition">Bảng xếp hạng</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-secondary transition">Hỗ trợ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6 border-b border-gray-700 pb-2">Về chúng tôi</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-secondary transition">Giới thiệu</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-secondary transition">Điều khoản sử dụng</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-secondary transition">Chính sách bảo mật</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-secondary transition">Câu hỏi thường gặp</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-secondary transition">Hướng dẫn</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6 border-b border-gray-700 pb-2">Liên hệ</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-secondary mt-1 mr-3"></i>
+                            <span class="text-gray-300">Tòa nhà ABC, 123 Đường Minh Khai, Hà Nội</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone text-secondary mr-3"></i>
+                            <span class="text-gray-300">1900 1234</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-secondary mr-3"></i>
+                            <span class="text-gray-300">support@tien.win</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-6 text-center text-gray-400">
+                <p>© 2023 Tien.win. Tất cả quyền được bảo lưu.</p>
+                <p class="text-sm mt-2">Giấy phép kinh doanh số: 01D123456 do Sở KHĐT Hà Nội cấp ngày 12/12/2022</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateOnScroll = function(element) {
+                const position = element.getBoundingClientRect();
+                // Checking whether fully visible
+                if(position.top < window.innerHeight && position.bottom >= 0) {
+                    element.classList.add('animate__animated', 'animate__fadeInUp');
+                }
+            };
+            
+            // Add observer for each element
+            const targets = document.querySelectorAll('.usp-card, .task-card, .step-item, .testimonial-card');
+            targets.forEach(target => {
+                target.classList.add('opacity-0');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.remove('opacity-0');
+                            entry.target.classList.add('transition', 'duration-700');
+                        }
+                    });
+                });
+                
+                observer.observe(target);
+            });
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=nightwalker43/home-tw" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
 </html>
